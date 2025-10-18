@@ -24,7 +24,7 @@ https://www.driftmotion.com/Driftmotion-Universal-Remote-Mount-ISC-p/dm3328.htm
 
 ### Cam Position Sensor
 
-Driftmotion V1 Digital CPS Upgrade for 7M-GTE!
+Driftmotion V2 Digital CPS Upgrade for 7M-GTE!
 
 Retrofited existing CPS with two digital hall effect sensors. These new sensors are fully encapsulated in stainless housings which are resistant to oil, heat, vibration. The Digital CPS has a factory Toyota CPS connector and plugs right into the original CPS connector on your engine harness. All you have to do to the wiring is change the 2nd cam sensor wire (G2) at the ECU connectror to be ignition 12v power for the new sensors. You will also need to set the air-gap on the new sensors to approximately .025". It may need a little adjustment, we found the range that works well is .020" to .045". The sensors are omni-directional, so only the gap is important, not the way the sensor is rotated. DO NOT twist the sensor wires when they are installed in the CPS, only turn the nuts.
 
@@ -62,3 +62,15 @@ AEM Electronics MAP Sensor Kits 30-2130-50, Bosch-Style, rated for up to 3.5 Bar
 * Stable Boost Targeting: Ensures consistent boost levels with fast response and no fluctuations.
 * High-Performance Specs: 5.4W, 25.4ohm coil, operates from vacuum to 120 PSI.
 * Universal Fit: Works with most turbo and supercharged systems using a 3-port solenoid.
+
+### Throttle Position Sensor
+
+Ford 3-wire rotary potentiometer from 1998-2002 E-Series 5.4L V8 (Motorcraft DY-967)
+
+* Type: Linear sweep potentiometer, 4–6 kΩ total resistance
+* Signal range: ~0.6–0.9 V at closed throttle → 4.3–4.7 V at WOT
+* Requires 5 V reference supply from ECU (not 12 V)
+* Pin A (left): Sensor ground → ECU sensor ground
+* Pin B (middle): Signal output → ECU analog TPS input
+* Pin C (right): 5 V reference → ECU 5 V sensor supply
+
