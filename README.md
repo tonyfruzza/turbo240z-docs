@@ -81,7 +81,8 @@ Ford 3-wire rotary potentiometer from 1998-2002 E-Series 5.4L V8 (Motorcraft DY-
 
 * Type: Linear sweep potentiometer, 4–6 kΩ total resistance
 * Signal range: ~0.6–0.9v at closed throttle → 4.3–4.7v at WOT
-* Requires 5v reference supply
+
+Pins:
 * Pin A (left): Sensor ground → ECU sensor ground
 * Pin B (middle): Signal output → ECU analog TPS input
 * Pin C (right): 5v reference → ECU 5v sensor supply
