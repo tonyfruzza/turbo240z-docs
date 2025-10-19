@@ -19,7 +19,7 @@ AEM Electronics Wideband UEGO Sensors 30-2001
 
 [Driftmotion Universal Remote Mount ISC](https://www.driftmotion.com/Driftmotion-Universal-Remote-Mount-ISC-p/dm3328.htm)
 
-Specs
+Specs:
 * Uses a Supra check valve
 * Ford type 2-wire idle speed control solenoid
 * Attached to intake plenum over a AN-10 male fitting
@@ -61,6 +61,8 @@ Bosch part number 0 261 231 006
 AEM Electronics MAP Sensor Kits 30-2130-50
 * Rated for up to 3.5 Bar (0-50PSI)
 * Voltage range 0.50v - 4.50v
+
+Pins:
 * Pin A: Ground Input
 * Pin B: +5.0v Input
 * Pin C: Signal Output
@@ -68,9 +70,10 @@ AEM Electronics MAP Sensor Kits 30-2130-50
 
 ### Electronic Boost Control Solenoid Valve
 
+3-port solenoid:
 * Pulse width modulation (PWM) driven.
-* Specs: 5.4W, 25.4ohm coil, operates from vacuum to 120 PSI.
-* 3-port solenoid.
+* 5.4W, 25.4ohm coil, operates from vacuum to 120 PSI.
+
 
 ### Throttle Position Sensor
 
@@ -85,7 +88,7 @@ Ford 3-wire rotary potentiometer from 1998-2002 E-Series 5.4L V8 (Motorcraft DY-
 
 ### Ignition
 
-IGN1A Inductive Smart Coils X 6
+IGN1A Inductive Smart Coils X 6. [Wiring guidance](./ignition/README.md)
 
 Pins:
 * Pin A (Leftmost): When the ECU applies ~5 V (or pulls it high) it begins coil dwell; and when it drops (or is pulled low) the coil fires.
