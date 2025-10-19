@@ -70,7 +70,7 @@ AEM Electronics MAP Sensor Kits 30-2130-50
 
 * Pulse width modulation (PWM) driven.
 * Specs: 5.4W, 25.4ohm coil, operates from vacuum to 120 PSI.
-* Uusing a 3-port solenoid.
+* 3-port solenoid.
 
 ### Throttle Position Sensor
 
@@ -83,3 +83,22 @@ Ford 3-wire rotary potentiometer from 1998-2002 E-Series 5.4L V8 (Motorcraft DY-
 * Pin B (middle): Signal output → ECU analog TPS input
 * Pin C (right): 5v reference → ECU 5v sensor supply
 
+### Ignition
+
+IGN1A Inductive Smart Coils X 6
+
+Pins:
+* Pin A (Leftmost): When the ECU applies ~5 V (or pulls it high) it begins coil dwell; and when it drops (or is pulled low) the coil fires.
+* Pin B: Logic ground (ECU 0 V reference)
+* Pin C: Spark ground to cylinder head (coil discharge ground)
+* Pin D: Engine Block (main) Ground
+* Pin E (Rightmost): positive +12V power
+
+Specs:
+* Output Energy: ~103 mJ typical (some variants or conditions show up to ~175 mJ) 
+* Spark duration: ~2.9 ms typical (some up to ~3.2 ms) 
+* Output Voltage (no-load / recommended dwell): Minimum ~40,000 V, some sources up to ~81,000 V 
+* Maximum Battery Voltage: ~17 V 
+* Maximum Primary Current: ~19-20 A depending on dwell/time. 
+* Turns Ratio: ~71:1 
+* Recommended nominal dwell ~3.0 ms for many applications; maximum continuous dwell ~9 ms; duty cycle should generally not exceed ~40% continuous.
