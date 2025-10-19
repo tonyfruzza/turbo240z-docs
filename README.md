@@ -1,4 +1,4 @@
-# 7M-GTE Powered Datsun 240Z Engine Wiring
+# 7M-GTE Powered Datsun 240Z Engine Electronics
 
 Engine management system is by AEM Infinity 6 (30-7106) including 30-3706 universal wiring kit with a 5 wire wide band UEGO sensor AVM-30-2002
 
