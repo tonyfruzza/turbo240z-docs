@@ -1,4 +1,4 @@
-# 7M-GTE Powered Datsun 240Z Engine Electronics
+# 7M-GTE Powered Datsun 240Z Engine Wiring
 
 Engine management system is by AEM Infinity 6 (30-7106) including 30-3706 universal wiring kit with a 5 wire wide band UEGO sensor AVM-30-2002
 
@@ -15,11 +15,21 @@ AEM Electronics Wideband UEGO Sensors 30-2001
 * Integrated heater element warms up in less than 20 seconds
 * PTFE insulators withstand temperatures of up to 1,400 degrees Fahrenheit (800 degrees Celsius)
 
+### Fuel Injectors
+
+Siemens Deka 630cc (60lb/hr) High Impedance Injectors (set of 6)
+
+* Flow rate: 630cc/min (60lb/hr)
+* Type: High impedance
+* Size: 14mm diameter × 60mm height
+* Connector: EV6 with pigtails included
+* Compatible with all typical race fuels and E85
+
 ### Idle Air Controller
 
 [Driftmotion Universal Remote Mount ISC](https://www.driftmotion.com/Driftmotion-Universal-Remote-Mount-ISC-p/dm3328.htm)
 
-Specs:
+Specs
 * Uses a Supra check valve
 * Ford type 2-wire idle speed control solenoid
 * Attached to intake plenum over a AN-10 male fitting
@@ -37,10 +47,12 @@ Specs:
 * Requires ignition-switched 12v power (not 5v)
 * Built-in pull-up resistors (disable pull-up in ECU software)
 * Signal output: ~0.5v low, ~11.5v high
-* Pin 1 (NE): Crank sensor
-* Pin 2 (G1): Cam sensor
-* Pin 3 (G): Ground
-* Pin 4 (G2): 12v ignition-switched power
+
+Pins:
+* 1 (NE): Crank sensor
+* 2 (G1): Cam sensor
+* 3 (G): Ground
+* 4 (G2): 12v ignition-switched power
 
 **Note:** AEM Infinity requires cam and crank wires to be moved in the jumper harness for hall sensor inputs.
 
@@ -67,13 +79,31 @@ Pins:
 * Pin B: +5.0v Input
 * Pin C: Signal Output
 
+### Air Inlet Temperature Sensor
+
+AEM Electronics Air Temp Sensor Kit 30-2010
+
+* Operating temperature: -40°C to 135°C (-40°F to 275°F)
+* Accuracy: ±1.5°C / ±2.7°F
+* Thermal time constant: <15 seconds
+* Thread: 3/8" NPT
+* Sensor body: Brass
+* Includes: AIT sensor, 3/8" NPT aluminum bung, connector & pins
+
+### Water Temperature Sensor
+
+AEM Electronics Fluid Temperature Sensor Kits
+
+* 30-2013: 1/8" NPT, DTM-style connector, includes aluminum bung, connector & pins
+* 30-2012: 1/8" NPT, includes plug, pins & pin lock
+* 30-2011: 3/8" NPT, includes aluminum bung, plug, pins & pin lock
+* Weatherproof 2 wire connector
 
 ### Electronic Boost Control Solenoid Valve
 
-3-port solenoid:
 * Pulse width modulation (PWM) driven.
-* 5.4W, 25.4ohm coil, operates from vacuum to 120 PSI.
-
+* Specs: 5.4W, 25.4ohm coil, operates from vacuum to 120 PSI.
+* Uusing a 3-port solenoid.
 
 ### Throttle Position Sensor
 
@@ -81,15 +111,20 @@ Ford 3-wire rotary potentiometer from 1998-2002 E-Series 5.4L V8 (Motorcraft DY-
 
 * Type: Linear sweep potentiometer, 4–6 kΩ total resistance
 * Signal range: ~0.6–0.9v at closed throttle → 4.3–4.7v at WOT
+* Requires 5v reference supply
 
 Pins:
 * Pin A (left): Sensor ground → ECU sensor ground
 * Pin B (middle): Signal output → ECU analog TPS input
 * Pin C (right): 5v reference → ECU 5v sensor supply
 
+### Radiator Fan
+
+Two electric fans driven wired in parallel.
+
 ### Ignition
 
-IGN1A Inductive Smart Coils X 6. [Wiring guidance](./ignition/README.md)
+IGN-1A Inductive Smart Coils X 6
 
 Pins:
 * Pin A (Leftmost): When the ECU applies ~5 V (or pulls it high) it begins coil dwell; and when it drops (or is pulled low) the coil fires.
