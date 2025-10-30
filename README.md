@@ -49,14 +49,26 @@ Specs
 * Signal output: ~0.5v low, ~11.5v high
 
 Pins:
-* 1 (NE): Crank sensor
-* 2 (G1): Cam sensor
-* 3 (G): Ground
-* 4 (G2): 12v ignition-switched power
+* 1 (NE) red blue: Crank sensor
+* 2 (G1) red white: Cam sensor
+* 3 (G-) blue white: Ground
+* 4 (G2) blue black: 12v ignition-switched power
+
+Connector pinout (Sumitomo HM 4-pin, viewed looking into the female receptacle on the sensor):
+
+```
+┌─────────────┐
+│ G1  │  NE  │  Pin 2 (red white) | Pin 1 (red blue)
+│─────┼──────│
+│ G2  │  G-  │  Pin 4 (blue black) | Pin 3 (blue white)
+└─────────────┘
+```
 
 **Note:** AEM Infinity requires cam and crank wires to be moved in the jumper harness for hall sensor inputs.
 
 ### Knock Sensors
+
+2 Knock sensors installed into the side of the engine block.
 
 Bosch part number 0 261 231 006
 
@@ -103,7 +115,7 @@ AEM Electronics Fluid Temperature Sensor Kits
 
 * Pulse width modulation (PWM) driven.
 * Specs: 5.4W, 25.4ohm coil, operates from vacuum to 120 PSI.
-* Uusing a 3-port solenoid.
+* 3-port solenoid.
 
 ### Throttle Position Sensor
 
@@ -120,7 +132,7 @@ Pins:
 
 ### Radiator Fan
 
-Two electric fans driven wired in parallel.
+Two electric fans wired in parallel.
 
 ### Ignition
 
