@@ -1,6 +1,6 @@
 # 7M-GTE Powered Datsun 240Z Engine Wiring
 
-Engine management system is by AEM Infinity 6 (30-7106) including 30-3706 universal wiring kit with a 5 wire wide band UEGO sensor AVM-30-2002
+Engine management system is by AEM Infinity 6 (30-7106) including 30-3706 universal wiring kit with a 5 wire wide band UEGO Sensor Kits
 
 ## Electronic Engine Components
 
@@ -57,11 +57,11 @@ Pins:
 Connector pinout (Sumitomo HM 4-pin, viewed looking into the female receptacle on the sensor):
 
 ```
-┌─────────────┐
-│ G1  │  NE  │  Pin 2 (red white) | Pin 1 (red blue)
-│─────┼──────│
-│ G2  │  G-  │  Pin 4 (blue black) | Pin 3 (blue white)
-└─────────────┘
+┌─────────┐
+│ G1 │ NE │  Pin 2 (red white) | Pin 1 (red blue)
+│────┼────│
+│ G2 │ G- │  Pin 4 (blue black) | Pin 3 (blue white)
+└─────────┘
 ```
 
 **Note:** AEM Infinity requires cam and crank wires to be moved in the jumper harness for hall sensor inputs.
@@ -73,11 +73,11 @@ Connector pinout (Sumitomo HM 4-pin, viewed looking into the female receptacle o
 Bosch part number 0 261 231 006
 
 * 1-20 kHz range
-* Sensitivy at 5 kHz 26 ± 8 mV/g
+* Sensitivity at 5 kHz 26 ± 8 mV/g
 * Impedance > 1 MΩ
 * Maximum Vibration ≤ 800 m/s2
 * -40 to 130°C Operating Temperature
-* Integrated 'EV1' style connector
+* Integrated 'EV1' style connector (2-pin) + plugs w/pigtails included
 * Fits M8 bolt/stud
 
 ### MAP Sensor
@@ -85,11 +85,20 @@ Bosch part number 0 261 231 006
 AEM Electronics MAP Sensor Kits 30-2130-50
 * Rated for up to 3.5 Bar (0-50PSI)
 * Voltage range 0.50v - 4.50v
+* RIFE 3 pin Connector (52-3PinC)
 
 Pins:
 * Pin A: Ground Input
 * Pin B: +5.0v Input
 * Pin C: Signal Output
+
+```
+  ┌─────┐
+  |  B  |
+┌─────────┐
+| C     A |
+└─────────┘
+```
 
 ### Air Inlet Temperature Sensor
 
@@ -138,18 +147,30 @@ Two electric fans wired in parallel.
 
 IGN-1A Inductive Smart Coils X 6
 
-Pins:
-* Pin A (Leftmost): When the ECU applies ~5 V (or pulls it high) it begins coil dwell; and when it drops (or is pulled low) the coil fires.
+**For detailed wiring instructions including wire gauge recommendations, firing order considerations, and power/ground distribution, see [ignition/README.md](ignition/README.md)**
+
+#### Coil Pinout
+
+* Pin A (Leftmost): Trigger signal - ECU applies ~5 V to begin coil dwell; drops low to fire
 * Pin B: Logic ground (ECU 0 V reference)
 * Pin C: Spark ground to cylinder head (coil discharge ground)
 * Pin D: Engine Block (main) Ground
-* Pin E (Rightmost): positive +12V power
+* Pin E (Rightmost): Positive +12V power
 
-Specs:
-* Output Energy: ~103 mJ typical (some variants or conditions show up to ~175 mJ) 
-* Spark duration: ~2.9 ms typical (some up to ~3.2 ms) 
-* Output Voltage (no-load / recommended dwell): Minimum ~40,000 V, some sources up to ~81,000 V 
-* Maximum Battery Voltage: ~17 V 
-* Maximum Primary Current: ~19-20 A depending on dwell/time. 
-* Turns Ratio: ~71:1 
-* Recommended nominal dwell ~3.0 ms for many applications; maximum continuous dwell ~9 ms; duty cycle should generally not exceed ~40% continuous.
+```
+┌───────────┐
+| A B C D E |
+└───────────┘
+```
+
+#### Coil Specifications
+
+* Output Energy: ~103 mJ typical (some variants or conditions show up to ~175 mJ)
+* Spark duration: ~2.9 ms typical (some up to ~3.2 ms)
+* Output Voltage (no-load / recommended dwell): Minimum ~40,000 V, some sources up to ~81,000 V
+* Maximum Battery Voltage: ~17 V
+* Maximum Primary Current: ~19-20 A depending on dwell/time
+* Turns Ratio: ~71:1
+* Recommended nominal dwell: ~3.0 ms for many applications
+* Maximum continuous dwell: ~9 ms
+* Duty cycle should generally not exceed ~40% continuous
