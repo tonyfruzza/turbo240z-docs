@@ -120,6 +120,52 @@ AEM Electronics Fluid Temperature Sensor Kits
 * 30-2011: 3/8" NPT, includes aluminum bung, plug, pins & pin lock
 * Weatherproof 2 wire connector
 
+### Fuel Pressure Sensor
+
+100PSI Pressure Transducer Sensor
+
+* Pressure range: 0-100 PSI
+* Output: 0.5V–4.5V linear voltage (0 PSI = 0.5V, 50 PSI = 2.5V, 100 PSI = 4.5V)
+* Accuracy: ±2% full scale
+* Thread: 1/8"-27 NPT
+* Includes water-sealed quick disconnect connector with pigtail
+
+Pins:
+* Top: Signal output
+* Bottom left: +5V power
+* Bottom right: Ground
+
+```
+  ┌───┐
+  │OUT│
+┌─├───┼─┐
+│+5V│GND│
+└───────┘
+```
+
+### Oil Pressure Sensor
+
+100PSI Pressure Transducer Sensor
+
+* Pressure range: 0-100 PSI
+* Output: 0.5V–4.5V linear voltage (0 PSI = 0.5V, 50 PSI = 2.5V, 100 PSI = 4.5V)
+* Accuracy: ±2% full scale
+* Thread: 1/8"-27 NPT
+* Includes water-sealed quick disconnect connector with pigtail
+
+Pins:
+* Top: Signal output
+* Bottom left: +5V power
+* Bottom right: Ground
+
+```
+  ┌───┐
+  │OUT│
+┌─├───┼─┐
+│+5V│GND│
+└───────┘
+```
+
 ### Electronic Boost Control Solenoid Valve
 
 * Pulse width modulation (PWM) driven.
