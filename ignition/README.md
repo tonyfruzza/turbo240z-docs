@@ -31,7 +31,7 @@ This pairing strategy means you'll have **three separate pairs** of wires for po
 Based on the IGN-1A maximum primary current of ~19-20A per coil:
 
 ### Individual Coil Connections
-* **16 AWG wire** for each coil's power (Pin E) and grounds (Pins C & D)
+* **19 AWG wire** for each coil's power (Pin E) and grounds (Pins C & D) - crimped directly into coil connector
 * **20-22 AWG wire** for ECU trigger signals (Pin A) and logic ground (Pin B)
 
 ### Main Power & Ground Distribution
@@ -50,26 +50,26 @@ Based on the IGN-1A maximum primary current of ~19-20A per coil:
 * Route: Coil → ECU sensor ground
 * Can be combined at ECU ground point
 
-### Pin C - Spark Ground to Cylinder Head (16 AWG)
+### Pin C - Spark Ground to Cylinder Head (19 AWG white w/black stripe)
 * Connect to clean ground point on cylinder head
 * Use cylinder pairing strategy:
-  * Cylinders 1 & 6 → Join with butt connector → 10 AWG to head ground
-  * Cylinders 5 & 2 → Join with butt connector → 10 AWG to head ground
-  * Cylinders 3 & 4 → Join with butt connector → 10 AWG to head ground
+  * Cylinders 1 & 6 → Join with butt connector → 16 AWG black → 10 AWG black to head ground
+  * Cylinders 5 & 2 → Join with butt connector → 16 AWG black → 10 AWG black to head ground
+  * Cylinders 3 & 4 → Join with butt connector → 16 AWG black → 10 AWG black to head ground
 
-### Pin D - Engine Block Ground (16 AWG)
+### Pin D - Engine Block Ground (19 AWG yellow w/purple stripe)
 * Connect to engine block ground
 * Use same pairing strategy as Pin C:
-  * Cylinders 1 & 6 → Join with butt connector → 10 AWG to block ground
-  * Cylinders 5 & 2 → Join with butt connector → 10 AWG to block ground
-  * Cylinders 3 & 4 → Join with butt connector → 10 AWG to block ground
+  * Cylinders 1 & 6 → Join with butt connector → 16 AWG black → 10 AWG black to block ground
+  * Cylinders 5 & 2 → Join with butt connector → 16 AWG black → 10 AWG black to block ground
+  * Cylinders 3 & 4 → Join with butt connector → 16 AWG black → 10 AWG black to block ground
 
-### Pin E - +12V Power (16 AWG)
+### Pin E - +12V Power (19 AWG orange w/blue stripe)
 * Connect to ignition-switched +12V source
 * Use pairing strategy:
-  * Cylinders 1 & 6 → Join with butt connector → 10 AWG to fused power source
-  * Cylinders 5 & 2 → Join with butt connector → 10 AWG to fused power source
-  * Cylinders 3 & 4 → Join with butt connector → 10 AWG to fused power source
+  * Cylinders 1 & 6 → Join with butt connector → 16 AWG red → 10 AWG red to fused power source
+  * Cylinders 5 & 2 → Join with butt connector → 16 AWG red → 10 AWG red to fused power source
+  * Cylinders 3 & 4 → Join with butt connector → 16 AWG red → 10 AWG red to fused power source
 * **Install 30A inline fuse on each 10 AWG main power feed**
 
 ## Recommended Parts & Connectors
