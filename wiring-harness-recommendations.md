@@ -6,6 +6,166 @@ This document identifies missing components, unclear pin assignments, and recomm
 
 ---
 
+## 0. HARNESS ROUTING STRATEGY: CABIN VS. ENGINE BAY
+
+### 0.1 Main I/O Bundle Routing Considerations
+
+The **Main I/O Bundle** from the AEM 30-3706 harness contains wires that terminate in **different locations**—some in the engine bay and others in the cabin. This bundle should be routed through the firewall with proper sealing.
+
+#### Wire-by-Wire Routing Guide
+
+| Wire | Color | Pin | Function | Destination | Notes |
+|------|-------|-----|----------|-------------|-------|
+| **MAP** | WHT 22AWG | C1-52 | Manifold Absolute Pressure | **Engine Bay** | Mount sensor on intake manifold or firewall |
+| **TPS** | WHT 22AWG | C1-51 | Throttle Position Sensor | **Engine Bay** | Mounts on throttle body |
+| **CLT TEMP** | WHT 22AWG | C1-38 | Coolant Temperature | **Engine Bay** | Thermostat housing or water neck |
+| **AIR TEMP** | WHT 22AWG | C1-39 | Intake Air Temperature | **Engine Bay** | Intake manifold or intercooler pipe |
+| **VCC** | RED 22AWG | C1-49 | +5V Sensor Power | **Engine Bay** | Powers MAP, TPS, and any 0-5V sensors |
+| **SIG GND** | BLK 22AWG | C1-23 | Analog Sensor Ground | **Engine Bay** | Ground reference for MAP, TPS, temp sensors |
+| **FAN** | PNK 22AWG | C1-21 | Cooling Fan Relay Control | **Cabin** | Routes to relay/fuse box (recommend cabin mount) |
+| **TACH** | PNK 22AWG | C1-2 | Tachometer Output | **Cabin** | Connects to 280Z instrument cluster |
+| **FUEL PUMP** | PNK 22AWG | C1-41 | Fuel Pump Relay Control | **Cabin or Rear** | See section 0.2 for relay location options |
+| **2 STEP** | TAN 22AWG | C1-30 | 2-Step/Launch Control Input | **Cabin** | Dashboard or steering wheel mounted button |
+
+#### Key Routing Decisions
+
+**Engine Bay Wires (7 wires):**
+- MAP, TPS, CLT TEMP, AIR TEMP, VCC, SIG GND should stay bundled together in engine bay
+- These connect to sensors mounted on or near the engine
+- Route with heat protection (split loom or heat-resistant sleeving)
+- Keep away from exhaust manifold and turbocharger
+
+**Cabin Wires (3 wires):**
+- FAN, TACH, FUEL PUMP, 2 STEP route through firewall into cabin
+- Should be separated from high-current power wires when passing through firewall
+- Use rubber firewall grommet with sealant for weather protection
+
+---
+
+### 0.2 Fuel Pump Relay Location Options
+
+You have two viable options for fuel pump relay placement:
+
+**Option A: Cabin-Mounted Relay (Traditional)**
+- **Pros:** Easier access for service, protected from elements
+- **Cons:** Longer power wire run from battery (if rear-mounted) to relay to pump
+- **Wiring:**
+  - Control wire (PNK 22AWG from C1-41) → ~6-8 ft to cabin relay box
+  - Power wire (10 AWG) → Battery (rear) → Relay Pin 30 → Pump (rear) = ~12-15 ft total
+
+**Option B: Rear-Mounted Relay Near Battery/Pump (Recommended for Rear Battery)**
+- **Pros:** Minimizes high-current wire length, reduces voltage drop, cleaner routing
+- **Cons:** Relay exposed to trunk environment (use weatherproof relay box)
+- **Wiring:**
+  - Control wire (PNK 22AWG from C1-41) → ~12-15 ft to rear relay (through cabin)
+  - Power wire (10 AWG) → Battery (rear) → Relay Pin 30 → Pump (rear) = ~3-5 ft total
+
+**Recommendation:** With rear-mounted battery, **Option B** is superior:
+- Shorter, heavier gauge wire for high-current pump circuit reduces voltage drop
+- 22 AWG control wire easily runs length of car with minimal voltage loss
+- Keeps relay near the components it controls
+
+**Relay Location:** Mount in trunk near battery, inside waterproof relay box (can use one bay of your 6-relay box if mounted in trunk, or use separate small relay box)
+
+---
+
+### 0.3 2-Step / Launch Control Input Clarification
+
+**What is the 2-Step Input (C1-30)?**
+- Digital input that triggers a secondary rev limiter (launch control)
+- Used for drag racing launches or anti-lag turbo systems
+- When activated, holds engine at set RPM regardless of throttle position
+
+**Your Current WOT Switch:**
+- The wide-open-throttle (WOT) switch at your gas pedal is likely a **full-throttle enrichment switch** (common on older carbureted systems)
+- This is **NOT** the same as a 2-step input
+- WOT switches typically complete ground when throttle is fully open
+- 2-step is typically **manually activated** independent of throttle position
+
+**How to Wire 2-Step:**
+
+**Option A: Dashboard Momentary Button (Most Common)**
+- Mount momentary push-button switch on dashboard
+- Wire one terminal to C1-30 (TAN 22AWG)
+- Wire other terminal to chassis ground
+- Press and hold button while at WOT to activate launch control
+- Release button to disable and launch
+
+**Option B: Clutch Switch (Alternative)**
+- Connect C1-30 to clutch pedal switch
+- Activates 2-step when clutch is depressed
+- Automatically disables when clutch is released for launch
+- Less common, requires AEM software configuration
+
+**Option C: Leave Unused**
+- If you don't plan to use launch control, you can leave C1-30 unconnected
+- Terminate wire with heat shrink and secure out of the way
+- Can add later if needed for drag racing
+
+**Recommended:** Install dashboard momentary button for future use, even if not immediately configured in AEM software.
+
+**Button Mounting Location Ideas:**
+- Center console near shifter (easy reach during launch)
+- Dashboard near steering wheel (thumb-activated)
+- Steering wheel mounted button (aftermarket wheel with button provisions)
+
+---
+
+### 0.4 Ignition Coil Logic Ground (SIG GND) Clarification
+
+**Your Question:** Can I use the Main I/O Bundle **SIG GND** (C1-23) for ignition coil Pin B logic grounds?
+
+**Answer: NO - Use Separate Shielded Ground Wires**
+
+**Why Separate Grounds Are Critical:**
+
+1. **Electrical Isolation:**
+   - SIG GND (C1-23) is the **analog sensor ground reference** for precision voltage measurements (MAP, TPS, temperature sensors)
+   - IGN-1A coil Pin B grounds carry **trigger signal return currents** during coil dwell/firing
+   - Mixing these grounds can introduce **electrical noise** into sensitive analog sensor readings
+
+2. **Ground Current Paths:**
+   - Sensor grounds: microamps to milliamps (very low current)
+   - Coil logic grounds: 50-100mA per coil during trigger (higher transient currents)
+   - High-frequency switching noise from coil triggers can corrupt sensor signals
+
+3. **Proper Grounding Strategy:**
+   - **SIG GND (C1-23/C1-24):** Exclusively for analog sensors (MAP, TPS, temp sensors)
+   - **Coil Pin B Logic Grounds:** Use dedicated shielded wire bundles (as documented in section 1.2)
+   - Both ultimately connect to ECU internal ground plane, but **keep wire paths separate**
+
+**Recommended Implementation:**
+- Use the **2x shielded 4-wire bundles** included in your ignition wiring kit for coil Pin B grounds
+- Route these shielded bundles separately from the Main I/O Bundle
+- Connect all coil Pin B wires to ECU sensor ground at ECU (C1-23 or C1-24), but use separate physical wires
+- The shielding provides additional EMI protection from high-voltage spark discharge
+
+**Summary:**
+- **SIG GND wire in Main I/O Bundle** → Analog sensors (MAP, TPS, CLT, IAT) in engine bay
+- **Shielded wire bundles** → Ignition coil Pin B logic grounds (separate routing)
+- Both terminate at ECU sensor ground, but maintain separate wire paths for noise immunity
+
+---
+
+### 0.5 Firewall Penetration Best Practices
+
+**Recommended Approach:**
+1. **Identify existing firewall grommets** in 240Z (typically found near steering column, behind heater, or near ECU location)
+2. **Group wires by type:**
+   - **Group 1:** Low-voltage signal wires (Main I/O Bundle cabin wires: FAN, TACH, FUEL PUMP, 2 STEP)
+   - **Group 2:** Sensor wires (Main I/O Bundle engine wires: MAP, TPS, CLT, AIR TEMP, VCC, SIG GND)
+   - **Group 3:** High-current power wires (relay power feeds, injector power, coil power) - route separately
+3. **Use proper grommets:**
+   - Install rubber firewall grommet sized for wire bundle diameter
+   - Apply RTV silicone sealant around grommet edges
+   - Prevents water intrusion into cabin
+4. **Protect wires at entry point:**
+   - Use split loom or heat shrink at firewall transition
+   - Secure with zip ties or adhesive mounts on both sides
+   - Ensure no sharp metal edges can abrade wire insulation
+
+---
+
 ## 1. CRITICAL MISSING PIN ASSIGNMENTS
 
 ### 1.1 Crankshaft Position Sensor (REQUIRED)
@@ -73,19 +233,46 @@ You have an ignition-specific wiring kit with Molex MX123 80-pin terminals:
 Each IGN-1A coil Pin B must connect to ECU signal ground for proper trigger reference.
 
 **Recommended Use of Shielded Wire Bundles:**
+
+The 2x shielded 4-wire bundles route from the ECU to the engine bay, where they branch out to individual coils near the valve cover. This minimizes wire count through the firewall while maintaining shielding through high-EMI areas.
+
+**Wiring Topology:**
+```
+ECU C1-23/C1-24 (single connection point)
+    |
+    ├─ Shielded Bundle 1 (4 wires) ──→ [Junction near coils 1-3]
+    |                                    ├─ White → Coil 1 Pin B
+    |                                    ├─ Black → Coil 2 Pin B
+    |                                    └─ Red   → Coil 3 Pin B
+    |
+    └─ Shielded Bundle 2 (4 wires) ──→ [Junction near coils 4-6]
+                                         ├─ White → Coil 4 Pin B
+                                         ├─ Black → Coil 5 Pin B
+                                         └─ Red   → Coil 6 Pin B
+```
+
+**Bundle Wire Assignments:**
 - **Bundle 1 (Coils 1, 2, 3):**
   - White wire → Coil 1 Pin B (Logic Ground)
   - Black wire → Coil 2 Pin B (Logic Ground)
   - Red wire → Coil 3 Pin B (Logic Ground)
-  - Green wire → Common to ECU C1-23 or C1-24 (Analog Sensor Ground)
-  
+  - Green wire → Common ground from ECU C1-23 or C1-24
+
 - **Bundle 2 (Coils 4, 5, 6):**
   - White wire → Coil 4 Pin B (Logic Ground)
   - Black wire → Coil 5 Pin B (Logic Ground)
   - Red wire → Coil 6 Pin B (Logic Ground)
-  - Green wire → Common to ECU C1-23 or C1-24 (Analog Sensor Ground)
+  - Green wire → Common ground from ECU C1-23 or C1-24
 
-**Why Shielded Wire:** Protects sensitive logic ground from EMI generated by high-voltage spark discharge.
+**Junction Point Implementation:**
+Create junctions in the engine bay near the coils where each bundle's green wire (common) splits into three individual coil connections. Recommended junction methods:
+1. **Solder splice** (most reliable) - solder 3 wires to each green common, cover with dual-wall heat shrink
+2. **Small weatherproof junction box** mounted on valve cover with terminal block inside
+3. **Butt connectors** (simple) - use 4-way splice connectors, sealed with heat shrink
+
+**Junction Location:** Position near the first coil or centrally on valve cover, away from exhaust heat and protected from direct water spray.
+
+**Why Shielded Wire:** Protects sensitive logic ground from EMI generated by high-voltage spark discharge during the long run from ECU to engine bay. Short individual connections at coils are less susceptible to noise pickup.
 
 **Power & Ground Distribution Strategy:**
 Per your ignition/README.md pairing strategy (180° firing pairs):
@@ -130,7 +317,7 @@ Injectors need constant +12V power supply (separate from ECU control):
    - Source: Main relay output (same 12V feeding ECU)
    - Wire gauge: 14 AWG minimum for 6x 630cc injectors
    - Inline fuse: 20A ATO/ATC blade fuse
-   
+
 2. **Distribution:**
    - Create a 6-way power distribution block or solder junction
    - Individual leads to each injector: 16-18 AWG
@@ -197,12 +384,12 @@ See [engine-relay-fuse-box.md](engine-relay-fuse-box.md) for detailed relay/fuse
 
 **Recommended AEM Pin Assignment:**
 - Use **C1-1 (Lowside 4)** - 1.7A max, no flyback diode (ISC is 5.4W/25.4Ω = ~0.47A @ 12V)
-- Alternative: **C1-4 (Lowside 7)** - 6A max, no flyback diode
+- Alternative: **C1-3 (Lowside 6)** - 6A max, WITH flyback diode (better for inductive loads)
 
 **Important:** Configure AEM PWM frequency to 300-400 Hz in software setup.
 
 **Wire Additions Needed:**
-- Add flying lead from C1-1 or C1-4 to ISC control wire
+- Add flying lead from C1-1 (Lowside 4) to ISC control wire
 - Document power wire routing from relay to ISC
 
 ---
@@ -219,22 +406,22 @@ See [engine-relay-fuse-box.md](engine-relay-fuse-box.md) for detailed relay/fuse
 - **Vacuum/Boost Lines:** Document plumbing to wastegate actuator and manifold
 
 **Recommended AEM Pin Assignment:**
-- Use **C1-21 (Lowside 2)** - Currently assigned to "FAN" in harness
-  - 1.7A max, no flyback diode (EBCS is ~0.47A @ 12V)
-- Alternative: **C1-41 (Lowside 0)** - Currently assigned to "FUEL PUMP"
-  
-**Conflict Resolution:**
-The harness pre-assigns C1-21 to "FAN" and C1-41 to "FUEL PUMP". You need to:
-1. Decide which lowside outputs to use for what functions
-2. Re-label or rewire harness accordingly
-3. Document final assignments
+- Use **C1-42 (Lowside 1)** - **RECOMMENDED by AEM** ✅
+  - 6A max, WITH internal flyback diode (protects ECU from inductive kickback)
+  - EBCS draws ~0.47A @ 12V (well within capacity)
+  - Flyback diode prevents voltage spikes when solenoid switches off
 
-**Suggested Pin Assignment Strategy:**
-- **C1-41 (Lowside 0):** Fuel Pump Relay (critical, keep as-is)
-- **C1-21 (Lowside 2):** Electronic Boost Control Solenoid (boost control)
-- **C1-1 (Lowside 4):** Idle Air Controller (idle control)
-- **C1-2 (Lowside 5):** Tachometer Output (keep as-is from harness)
-- **C1-4 (Lowside 7):** Cooling Fan Relay (relocate from C1-21)
+**Why C1-42 is Superior:**
+- **Flyback Protection:** Solenoids are inductive loads that generate voltage spikes when switched off. The internal flyback diode clamps these spikes, protecting the ECU.
+- **Higher Current Rating:** 6A capacity vs 1.7A on other lowside outputs provides safety margin.
+- **AEM Factory Recommendation:** Per AEM harness manual, C1-42 is specifically recommended for boost control solenoids.
+
+**Final Pin Assignment Strategy:**
+- **C1-41 (Lowside 0):** Fuel Pump Relay - 1.7A, no flyback (relay coil doesn't need it)
+- **C1-42 (Lowside 1):** Electronic Boost Control Solenoid - 6A, WITH flyback ✅
+- **C1-21 (Lowside 2):** Cooling Fan Relay - 1.7A, no flyback (relay coil doesn't need it)
+- **C1-1 (Lowside 4):** Idle Air Controller - 1.7A, no flyback
+- **C1-2 (Lowside 5):** Tachometer Output - 6A, WITH flyback
 
 ---
 
@@ -329,28 +516,41 @@ Allows individual fusing (20A each)
 
 ## 3. MISSING OPTIONAL FEATURES YOU SHOULD CONSIDER
 
-### 3.1 Oil Pressure Monitoring (RECOMMENDED)
-**Status:** ❌ NOT IMPLEMENTED
+### 3.1 Oil Pressure Monitoring (IN PROGRESS)
+**Status:** ✅ SENSOR SOURCED - ⚠️ WIRING NEEDS TO BE ADDED
 
 **Why You Need This:**
 - Turbo engine protection
 - Early warning of bearing failure
 - Can trigger limp mode or engine shutdown
 
-**Required Hardware:**
-- 0-5V analog oil pressure sensor (you need to source)
-- AEM 30-2131-100 (0-100 PSI) OR similar 3-wire sensor
-- 1/8" NPT bung in oil galley or block
+**Hardware Sourced:**
+- ✅ 100PSI Pressure Transducer Sensor (documented in README.md)
+- Output: 0.5V–4.5V linear voltage (0-100 PSI range)
+- Thread: 1/8"-27 NPT
+- Includes water-sealed quick disconnect connector with pigtail
+
+**Sensor Pinout:**
+- Top pin: Signal output
+- Bottom left: +5V power
+- Bottom right: Ground
 
 **AEM Pin Assignment:**
-- **C1-73 (Analog 13)** - Default Oil Pressure Sensor input (per pinout doc)
-- Pin A → C1-23 or C1-24 (Analog Sensor Ground)
-- Pin B → C1-73 (Signal)
-- Pin C → C1-49 or C1-50 (+5V Sensor Power)
+- **C1-73 (Analog 13)** - Oil Pressure Sensor signal input
+- Sensor Ground pin → C1-23 or C1-24 (Analog Sensor Ground)
+- Sensor Signal pin → C1-73 (Analog 13)
+- Sensor +5V pin → C1-49 or C1-50 (+5V Sensor Power)
 
-**Wire Requirements:**
-- Add 3-wire bundle (22-24 AWG) to harness
-- Red: +5V, Black: Ground, White/Signal: to C1-73
+**Wire Requirements - NEEDS TO BE ADDED:**
+- Add 3-wire bundle (22-24 AWG) to harness from ECU to engine bay
+- Red: +5V (C1-49/C1-50 to sensor +5V pin)
+- Black: Ground (C1-23/C1-24 to sensor GND pin)
+- White/Signal: C1-73 to sensor OUT pin
+- Route with engine bay sensor bundle (near MAP, TPS, temp sensors)
+
+**Installation Location:**
+- 1/8" NPT port on engine block oil galley
+- Alternative: T-adapter at oil pressure gauge sender location
 
 ---
 
@@ -376,29 +576,38 @@ Allows individual fusing (20A each)
 
 ---
 
-### 3.3 Fuel Pressure Monitoring (ALREADY ASSIGNED)
-**Status:** ✅ WIRED BUT SENSOR NOT SPECIFIED
+### 3.3 Fuel Pressure Monitoring (IN PROGRESS)
+**Status:** ✅ SENSOR SOURCED - ⚠️ WIRING NEEDS TO BE ADDED
+
+**Hardware Sourced:**
+- ✅ 100PSI Pressure Transducer Sensor (documented in README.md)
+- Output: 0.5V–4.5V linear voltage (0-100 PSI range)
+- Thread: 1/8"-27 NPT
+- Includes water-sealed quick disconnect connector with pigtail
+- **Note:** 100 PSI range suitable for high-boost turbo applications
+
+**Sensor Pinout:**
+- Top pin: Signal output
+- Bottom left: +5V power
+- Bottom right: Ground
 
 **AEM Pin Assignment:**
-- **C1-53 (Analog 9)** - Default Fuel Pressure Sensor input (per pinout doc)
-- Flying lead harness shows this pin unused
+- **C1-53 (Analog 9)** - Fuel Pressure Sensor signal input
+- Sensor Ground pin → C1-23 or C1-24 (Analog Sensor Ground)
+- Sensor Signal pin → C1-53 (Analog 9)
+- Sensor +5V pin → C1-49 or C1-50 (+5V Sensor Power)
 
-**Missing Hardware:**
-- You need to source a 0-5V fuel pressure sensor
-- Recommended: AEM 30-2131-50 (0-50 PSI / 3.5 Bar)
-  - Matches your MAP sensor spec
-  - Suitable for turbocharged application with 1:1 FPR
-
-**Wire Requirements:**
-- Add 3-wire bundle (22 AWG) from harness
-- Pin A → Sensor Ground (C1-23/C1-24)
-- Pin B → +5V (C1-49/C1-50)
-- Pin C → C1-53 signal input
+**Wire Requirements - NEEDS TO BE ADDED:**
+- Add 3-wire bundle (22-24 AWG) to harness from ECU to engine bay
+- Red: +5V (C1-49/C1-50 to sensor +5V pin)
+- Black: Ground (C1-23/C1-24 to sensor GND pin)
+- White/Signal: C1-53 to sensor OUT pin
+- Route with engine bay sensor bundle (near MAP, TPS, temp sensors)
 
 **Installation Location:**
 - Fuel rail (high-pressure side)
-- After fuel pressure regulator for actual rail pressure
-- Use -4 AN or 1/8" NPT adapter
+- After fuel pressure regulator for actual delivered rail pressure
+- Use -4 AN to 1/8" NPT adapter or T-fitting at fuel rail
 
 ---
 
@@ -474,7 +683,7 @@ Allows individual fusing (20A each)
 ### 3.7 Intake Air Temperature Already Assigned
 **Status:** ✅ ASSIGNED
 
-- C1-39 (Analog Temp 2) → White 22AWG → "AIR TEMP" in Main I/O Bundle  
+- C1-39 (Analog Temp 2) → White 22AWG → "AIR TEMP" in Main I/O Bundle
 - Sensor specified: AEM 30-2010 (3/8" NPT)
 - **VERIFY** installation location (intake manifold or intercooler pipe)
 
@@ -639,6 +848,10 @@ Should include:
 
 ## 6. SPECIFIC WIRE ADDITIONS NEEDED
 
+### Harness Modifications Completed:
+- ✅ Removed unused Injector 7 & 8 wires (orange 22AWG from C1-3, C1-4)
+- ✅ Removed unused Coil 7 & 8 wires (blue 22AWG from C1-31, C1-32)
+
 ### Summary of Wires to Add to AEM Harness:
 
 | Function | From Pin | Wire Spec | Qty | Notes |
@@ -650,17 +863,16 @@ Should include:
 | Knock Sensor 1 Signal | C1-44 | 22 AWG coax/shielded | 1 | RG174 or similar |
 | Knock Sensor 2 Signal | C1-45 | 22 AWG coax/shielded | 1 | RG174 or similar |
 | Knock Sensor Grounds | — | 20 AWG | 2 | To chassis ground |
-| IAC Control Signal | C1-1 or C1-4 | 18 AWG | 1 | Lowside output |
+| IAC Control Signal | C1-1 | 18 AWG | 1 | Lowside 4 output |
 | IAC Power (+12V) | — | 16 AWG | 1 | From relay + 5A fuse |
-| EBCS Control Signal | C1-21 (reassign) | 18 AWG | 1 | Lowside output |
+| EBCS Control Signal | C1-42 | 18 AWG | 1 | Lowside 1 output (with flyback) |
 | EBCS Power (+12V) | — | 18 AWG | 1 | From relay + 5A fuse |
 | Injector Power Bus | — | 14 AWG | 1 | From relay + 20A fuse |
 | Injector Power Dist. | — | 16-18 AWG | 6 | To each injector +12V |
-| Oil Pressure Sensor | C1-73 | 22 AWG (3-wire) | 1 | +5V, GND, Signal |
-| Oil Temp Sensor | C1-40 | 22 AWG (2-wire) | 1 | Thermistor type |
-| Fuel Pressure Sensor | C1-53 | 22 AWG (3-wire) | 1 | +5V, GND, Signal |
+| Oil Pressure Sensor | C1-73 | 22 AWG (3-wire) | 1 | ✅ Sensor sourced - needs wiring added |
+| Oil Temp Sensor | C1-40 | 22 AWG (2-wire) | 1 | Thermistor type - needs sourcing |
+| Fuel Pressure Sensor | C1-53 | 22 AWG (3-wire) | 1 | ✅ Sensor sourced - needs wiring added |
 | Flex Fuel Sensor (opt) | C1-28 | 20 AWG (3-wire) | 1 | +12V, GND, Freq signal |
-| Cooling Fan Relay | C1-4 (reassign) | 18 AWG | 1 | Move from C1-21 |
 
 ---
 
@@ -675,10 +887,10 @@ Should include:
 
 2. **Output Function Assignment:**
    - C1-1 (Lowside 4): Idle Air Controller (PWM 300-400 Hz)
-   - C1-21 (Lowside 2): Electronic Boost Control Solenoid
+   - C1-42 (Lowside 1): Electronic Boost Control Solenoid (PWM for boost control)
    - C1-41 (Lowside 0): Fuel Pump Relay
    - C1-2 (Lowside 5): Tachometer Output
-   - C1-4 (Lowside 7): Cooling Fan Relay
+   - C1-21 (Lowside 2): Cooling Fan Relay
 
 3. **Input Function Assignments:**
    - C1-25: Crankshaft Position Sensor (Hall)
@@ -718,13 +930,15 @@ Should include:
 
 ### Critical Missing Hardware:
 
-1. **Fuel Pressure Sensor**
-   - AEM 30-2131-50 (0-50 PSI / 0-3.5 Bar)
-   - Or equivalent 0-5V analog output sensor
+1. **~~Fuel Pressure Sensor~~ ✅ COMPLETED**
+   - 100PSI Pressure Transducer documented in README.md
+   - 0.5V-4.5V analog output, 3-wire with quick disconnect
+   - **Still needs:** 3-wire harness extension added to AEM harness
 
-2. **Oil Pressure Sensor**
-   - AEM 30-2131-100 (0-100 PSI) or similar
-   - 0-5V analog output, 3-wire
+2. **~~Oil Pressure Sensor~~ ✅ COMPLETED**
+   - 100PSI Pressure Transducer documented in README.md
+   - 0.5V-4.5V analog output, 3-wire with quick disconnect
+   - **Still needs:** 3-wire harness extension added to AEM harness
 
 3. **~~Ignition Coils/Ignitors~~ ✅ COMPLETED**
    - IGN-1A Inductive Smart Coils (6x) specified in README.md
@@ -758,14 +972,16 @@ Should include:
 
 ### Medium Priority (Important for Safety/Reliability):
 - [ ] Add knock sensor signal wires (C1-44, C1-45)
-- [ ] Source and wire oil pressure sensor
-- [ ] Source and wire fuel pressure sensor
-- [ ] Document oil temperature sensor wiring (C1-40)
+- [x] Source oil pressure sensor ✅ (100PSI transducer in README.md)
+- [ ] Add 3-wire harness extension for oil pressure sensor (C1-73)
+- [x] Source fuel pressure sensor ✅ (100PSI transducer in README.md)
+- [ ] Add 3-wire harness extension for fuel pressure sensor (C1-53)
+- [ ] Source and document oil temperature sensor (C1-40)
 - [ ] Create grounding strategy diagram
 
 ### Lower Priority (Features & Optimization):
-- [ ] Wire idle air controller (C1-1 or C1-4)
-- [ ] Wire electronic boost control solenoid (C1-21)
+- [ ] Wire idle air controller (C1-1, Lowside 4)
+- [ ] Wire electronic boost control solenoid (C1-42, Lowside 1 with flyback)
 - [ ] Consider flex fuel sensor for E85 content monitoring
 - [ ] Create master wire color/pin assignment table
 - [ ] Create connector pinout reference document
@@ -789,15 +1005,16 @@ Your documentation continues to improve with recent additions. Here's the curren
 - ❌ Knock sensor signal wiring (harness doesn't include these wires, must add)
 
 **Recommended Additions:**
-- Oil pressure monitoring (sensor needs sourcing, pin C1-73 available)
-- Fuel pressure monitoring (pin C1-53 assigned, sensor needs sourcing)
-- Flex fuel sensor for E85 content monitoring (pin C1-28 available)
-- Oil temperature sensor wiring (sensor mentioned in README, needs pin documentation)
+- Oil pressure monitoring ✅ (sensor sourced - 100PSI transducer, pin C1-73 available, needs wiring)
+- Fuel pressure monitoring ✅ (sensor sourced - 100PSI transducer, pin C1-53 assigned, needs wiring)
+- Flex fuel sensor for E85 content monitoring (pin C1-28 available, sensor needs sourcing)
+- Oil temperature sensor (sensor needs sourcing, pin C1-40 available)
 
 **Clarifications Now Resolved:**
-- ✅ Lowside output assignments clarified in TODO document
-- ✅ IAC control pin: C1-1 or C1-4 (Lowside 4 or 7)
-- ✅ EBCS control pin: C1-21 (Lowside 2)
+- ✅ Lowside output assignments follow AEM recommendations
+- ✅ IAC control pin: C1-1 (Lowside 4)
+- ✅ EBCS control pin: C1-42 (Lowside 1 with flyback diode) - per AEM manual recommendation
+- ✅ Cooling fan relay: C1-21 (Lowside 2)
 - ✅ Ignition system: IGN-1A smart coils confirmed
 
 **Next Priority Actions:**
