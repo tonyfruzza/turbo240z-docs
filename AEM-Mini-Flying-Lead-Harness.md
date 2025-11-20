@@ -11,9 +11,8 @@
 
 NOTE: This harness includes wires labeled for Injectors 7 & 8 and Coils 7 & 8. These outputs are only available on
 Infinity-308 (formerly Infinity-8h) ECUs, and are not present on the Infinity-306 (formerly Infinity-6). These wires are
-noted with an asterisk (*) in the tables below. In the case of using this harness with an Infinity-306 ECU, the
-unused flying leads may be re-purposed for the corresponding ECU I/O. Refer to ECU pinout documentation for
-details. Any unused wires should either be removed from the harness, or insulated and secured out of the way.
+noted with an asterisk (*) in the tables below. I have removed these flying leads, allowing them to be re-purposed for
+for other ECU I/O functions as needed.
 
 A Micro Relay is included in this harness kit to control power to the ECU. The relay needs to be installed into the
 holder located next to the main ECU connector on the wire harness. The relay will only fit in the holder in one
@@ -193,7 +192,7 @@ direction
 
 ### Notes
 
-- All user-installed auxiliary relays must be powered by the output from the EFI main relay.  
-- All user-installed auxiliary circuits should be protected with a properly sized fuse as shown.  
+- All user-installed auxiliary relays must be powered by the output from the EFI main relay.
+- All user-installed auxiliary circuits should be protected with a properly sized fuse as shown.
 - Relays with internal diodes must have the anode side of the coil connected to the ECU.
 - The Infinity-6 ECUs use the MX123 Sealed Connection System from Molex.
