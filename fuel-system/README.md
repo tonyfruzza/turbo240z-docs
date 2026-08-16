@@ -2,6 +2,11 @@ Fuel system from VTS.
 
 In tank fuel hanger video details located at https://www.youtube.com/watch?v=8JcUKLAUmWk
 
+## VTS Documentation (OCR'd from PDFs in `docs/`)
+
+- [VTS Poly Tank Installation Guide](vts-poly-tank-install-guide.md) - Full poly tank install procedure, fuel pump/sender mounting tips, specs, and size limitations
+- [VTS Fuel Sender Instructions](vts-fuel-sender-instructions.md) - Fuel sender wiring reference and install steps. Note: the wiring table in this doc is for the factory dash gauge/chassis harness, not the AEM Infinity engine harness, but is useful reference when tying the sender into the rest of the car's wiring.
+
 ## Tools Required
 
 ### Hole Saws
